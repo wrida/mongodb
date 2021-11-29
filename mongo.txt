@@ -1,0 +1,59 @@
+> db.contactList.update({First_name:"seif"},{First_name:"Anis"})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.contactList.find([$and:{age:{$gt:18}},{Last_name:{$"ah":true}}])
+uncaught exception: SyntaxError: missing ] after element list :
+@(shell):1:25
+> db.contactList.find({$and:[{age:{$gt:18}},{Last_name:{$"ah":true}}]})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:55
+> db.contactList.find({$and:[{age:{$gt:18}},{Last_name:'ah'}]})
+> db.contactList.find({$and:[{age:{$gt:18}},{Last_name:/ah/}]})
+> db.contactList.find()
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c575f"), "Last_name" : "Ben_lahmar", "First_name" : "Feres", "Email" : undefined, "age" : 15 }
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c5760"), "First_name" : "Anis" }
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c5761"), "Last_name" : "Fatnassi", "First_name" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : 40 }
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c5762"), "Last_name" : "Ben yahia", "First_name" : "Rym", "age" : 4 }
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c5763"), "Last_name" : "Cherif", "First_name" : "Sami", "age" : 3 }
+> db.contactList.find({$and:[{age:{$lt:18}},{Last_name:/ah/}]})
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c575f"), "Last_name" : "Ben_lahmar", "First_name" : "Feres", "Email" : undefined, "age" : 15 }
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c5762"), "Last_name" : "Ben yahia", "First_name" : "Rym", "age" : 4 }
+> db.contactList.find({$and:[{age:{$lt:18}},{Last_name:{$"ah":true}}]})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:55
+> db.contactList.find({$and:[{age:{$gt:18}},{Last_name:'ah'}]})
+> db.contactList.find({$and:[{age:{$lt:18}},{Last_name:'ah'}]})
+> db.contactList.find({$and:[{age:{$lt:18}},{Last_name:/ah/}]})
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c575f"), "Last_name" : "Ben_lahmar", "First_name" : "Feres", "Email" : undefined, "age" : 15 }
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c5762"), "Last_name" : "Ben yahia", "First_name" : "Rym", "age" : 4 }
+> db.contactList.find({$and:[{age:{$lt:18}},{Last_name:/ah/}]}).pretty()
+{
+        "_id" : ObjectId("61a4dd60d046d5a27e5c575f"),
+        "Last_name" : "Ben_lahmar",
+        "First_name" : "Feres",
+        "Email" : undefined,
+        "age" : 15
+}
+{
+        "_id" : ObjectId("61a4dd60d046d5a27e5c5762"),
+        "Last_name" : "Ben yahia",
+        "First_name" : "Rym",
+        "age" : 4
+}
+> db.contactList.remove({age:{$lte:5}})
+WriteResult({ "nRemoved" : 2 })
+> db.contactList.find().pretty()
+{
+        "_id" : ObjectId("61a4dd60d046d5a27e5c575f"),
+        "Last_name" : "Ben_lahmar",
+        "First_name" : "Feres",
+        "Email" : undefined,
+        "age" : 15
+}
+{ "_id" : ObjectId("61a4dd60d046d5a27e5c5760"), "First_name" : "Anis" }
+{
+        "_id" : ObjectId("61a4dd60d046d5a27e5c5761"),
+        "Last_name" : "Fatnassi",
+        "First_name" : "Sarra",
+        "Email" : "sarra.f@gmail.com",
+        "age" : 40
+}
